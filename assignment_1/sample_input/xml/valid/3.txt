@@ -1,0 +1,1 @@
+<universe answer="42" website="http://www.universe.com" > <galaxies> <galaxy name="Milky Way" hasLife="true"> </galaxy> <galaxy name="Andromea"> </galaxy> And many more</galaxies></universe>
