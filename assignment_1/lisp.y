@@ -1,5 +1,6 @@
 %{
 #include<stdio.h>
+int yylex(); // A function that is to be generated and provided by flex,
 
 int yyerror(const char* s)
 {
@@ -20,26 +21,33 @@ int yyerror(const char* s)
 };
 
  /* Declaring type of terminals */		
-%start expression	 
 %token<value> NUMBER MULTIPLY PLUS
 
 %token STOP DIVIDE MINUS OPENB CLOSEB
 
  /* Declaring type of non-terminals */
-%type<value> expression		
+%type<value> RESULT TERM PLUS_NUMBER PLUS_TERM MULTIPLY_NUMBER MULTIPLY_TERM DIVIDE_TERM MINUS_TERM	
 
 %%
-expression: PLUS|MINUS|DIVIDE|MULTIPLY
 
-NUMBER: OPENB PLUS CLOSEB|
-		OPENB MINUS CLOSEB|
-		OPENB DIVIDE CLOSEB|
-		OPENB MULTIPLY CLOSEB {$$ = $2;}
+RESULT: OPENB PLUS_TERM CLOSEB {$$ = $2; printf("result: %f\n",$2);}|
+		OPENB MINUS_TERM CLOSEB {$$ = $2;}|
+		OPENB DIVIDE_TERM CLOSEB {$$ = $2;}|
+		OPENB MULTIPLY_TERM CLOSEB {$$ = $2;}
 
-PLUS: PLUS NUMBER {$$ = $1 + $2 }
-MULTIPLY: MULTIPLY NUMBER {$$ = $1 + $2 }
-MINUS: MINUS NUMBER NUMBER {$$ = $2 - $3}
-DIVIDE: MINUS NUMBER NUMBER {$$ = $2 - $3}
+TERM: NUMBER | RESULT
+
+PLUS_NUMBER: PLUS_TERM TERM {$$ = $1 + $2; printf("result: %f\n",$$);}
+
+PLUS_TERM: PLUS | PLUS_NUMBER 
+
+MULTIPLY_NUMBER: MULTIPLY_TERM TERM {$$ = $1 * $2;} 
+
+MULTIPLY_TERM: MULTIPLY | MULTIPLY_NUMBER
+
+MINUS_TERM: MINUS TERM TERM {$$ = $2 - $3;}
+
+DIVIDE_TERM: DIVIDE TERM TERM {$$ = $2 / $3;}
 
 
 %%

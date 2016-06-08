@@ -2,7 +2,7 @@
 
 #include<math.h>
 #include<stdio.h>
-#include "calc.tab.cac"
+#include "lisp.tab.c"
 %}
 
 %option noyywrap
@@ -11,13 +11,13 @@ DIGIT    [0-9]
 
 %%
 
-{DIGIT} {return NUMBER;yylval.value = atof(yytext);}
-"+" {return PLUS;yylval.value = 0;}
-"-" {return MINUS;}
-"/" {return DIVIDE;}
-"*" {return MULTIPLY; yylval.value = 1;}
-"(" {return OPENB;}
-")" {return CLOSEB;}
+{DIGIT} {yylval.value = atof(yytext);return NUMBER;}
+"+" {printf("%s\n",  yytext);yylval.value = 0;return PLUS;}
+"-" {printf("%s\n",  yytext);return MINUS;}
+"/" {printf("%s\n",  yytext);return DIVIDE;}
+"*" {printf("%s\n",  yytext);yylval.value = 1;return MULTIPLY; }
+"(" {printf("%s\n",  yytext);return OPENB;}
+")" {printf("%s\n",  yytext);return CLOSEB;}
 . {};
 
 %%
