@@ -11,13 +11,14 @@ DIGIT    [0-9]
 
 %%
 
-{DIGIT} {yylval.value = atof(yytext);return NUMBER;}
-"+" {printf("%s\n",  yytext);yylval.value = 0;return PLUS;}
-"-" {printf("%s\n",  yytext);return MINUS;}
-"/" {printf("%s\n",  yytext);return DIVIDE;}
-"*" {printf("%s\n",  yytext);yylval.value = 1;return MULTIPLY; }
-"(" {printf("%s\n",  yytext);return OPENB;}
-")" {printf("%s\n",  yytext);return CLOSEB;}
+{DIGIT}+ { yylval.value = atoi(yytext);return NUMBER;}
+"+" {yylval.value = 0;return PLUS;}
+"-" {return MINUS;}
+"/" {return DIVIDE;}
+"*" {yylval.value = 1;return MULTIPLY; }
+"(" {return OPENB;}
+")" {return CLOSEB;}
+
 . {};
 
 %%

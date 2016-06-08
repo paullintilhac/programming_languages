@@ -63,7 +63,7 @@ union YYSTYPE
 {
 #line 19 "lisp.y" /* yacc.c:1909  */
 
-    float value;
+    int value;
 
 #line 69 "lisp.tab.h" /* yacc.c:1909  */
 };

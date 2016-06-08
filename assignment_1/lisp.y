@@ -17,7 +17,7 @@ int yyerror(const char* s)
  /* We only need a float value from each token */
 %union
 {
-    float value;
+    int value;
 };
 
  /* Declaring type of terminals */		
@@ -29,15 +29,16 @@ int yyerror(const char* s)
 %type<value> RESULT TERM PLUS_NUMBER PLUS_TERM MULTIPLY_NUMBER MULTIPLY_TERM DIVIDE_TERM MINUS_TERM	
 
 %%
+final: RESULT  {printf("result: %d\n",$1);}
 
-RESULT: OPENB PLUS_TERM CLOSEB {$$ = $2; printf("result: %f\n",$2);}|
+RESULT: OPENB PLUS_TERM CLOSEB {$$ = $2;}|
 		OPENB MINUS_TERM CLOSEB {$$ = $2;}|
 		OPENB DIVIDE_TERM CLOSEB {$$ = $2;}|
 		OPENB MULTIPLY_TERM CLOSEB {$$ = $2;}
 
 TERM: NUMBER | RESULT
 
-PLUS_NUMBER: PLUS_TERM TERM {$$ = $1 + $2; printf("result: %f\n",$$);}
+PLUS_NUMBER: PLUS_TERM TERM {$$ = $1 + $2;}
 
 PLUS_TERM: PLUS | PLUS_NUMBER 
 
