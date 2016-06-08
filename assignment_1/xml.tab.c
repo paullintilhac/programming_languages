@@ -68,13 +68,19 @@
 #include <string>
 #include <stdlib.h>
 #include <algorithm>
+#include <ctype.h>
+#include <stdio.h>
+#include <iomanip>
+#include <fstream>
+#include <sstream>
+#include <iterator>
 #define MAX_LEN 1024
 using namespace std;
 int yylex(); // A function that is to be generated and provided by flex,
              // which returns a next token when called repeatedly.
 int yyerror(const char *p) { std::cerr << "error: " << p << std::endl; };
 
-#line 78 "xml.tab.c" /* yacc.c:339  */
+#line 84 "xml.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -120,13 +126,13 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 13 "xml.y" /* yacc.c:355  */
+#line 19 "xml.y" /* yacc.c:355  */
 
     char name[MAX_LEN];;
     /* You may include additional fields as you want. */
     /* char op; */
 
-#line 130 "xml.tab.c" /* yacc.c:355  */
+#line 136 "xml.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -143,7 +149,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 147 "xml.tab.c" /* yacc.c:358  */
+#line 153 "xml.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -383,18 +389,18 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  9
+#define YYFINAL  12
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   10
+#define YYLAST   16
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  7
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  5
+#define YYNNTS  6
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  9
+#define YYNRULES  12
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  13
+#define YYNSTATES  17
 
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
@@ -441,7 +447,8 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    28,    28,    28,    30,    36,    36,    38,    38,    38
+       0,    34,    34,    34,    34,    34,    36,    54,    72,    72,
+      72,    74,    74
 };
 #endif
 
@@ -451,7 +458,8 @@ static const yytype_uint8 yyrline[] =
 static const char *const yytname[] =
 {
   "$end", "error", "$undefined", "TEXT", "OPENTAG", "CLOSETAG", "\"\"",
-  "$accept", "COMPLETES", "COMPLETE", "COMPLETEBODIES", "COMPLETEBODY", YY_NULLPTR
+  "$accept", "COMPLETES", "COMPLETE", "EMPTY", "COMPLETEBODIES",
+  "COMPLETEBODY", YY_NULLPTR
 };
 #endif
 
@@ -478,8 +486,8 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-       1,    -2,     3,     1,    -3,    -3,    -3,     4,    -2,    -3,
-      -3,    -3,    -3
+       4,    -2,    13,     4,     4,    -3,     3,    -3,    -3,    -3,
+       9,     3,    -3,    -3,    -3,    -3,    -3
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -487,20 +495,20 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       0,     0,     0,     2,     7,     9,     8,     0,     5,     1,
-       3,     4,     6
+       0,     0,     0,     3,     2,    11,     0,     7,    10,    12,
+       0,     8,     1,     4,     5,     6,     9
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -3,     5,    -1,     2,    -3
+      -3,     8,    -1,    -3,     5,    -3
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     2,     3,     7,     8
+      -1,     2,     3,     4,    10,    11
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -508,34 +516,36 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_uint8 yytable[] =
 {
-       6,     4,     1,     9,     5,     1,     0,     6,    10,    11,
-      12
+       9,     5,     6,     7,     8,     9,     5,     6,     1,     8,
+       9,    13,    14,    12,    15,     0,    16
 };
 
 static const yytype_int8 yycheck[] =
 {
-       1,     3,     4,     0,     6,     4,    -1,     8,     3,     5,
-       8
+       1,     3,     4,     5,     6,     6,     3,     4,     4,     6,
+      11,     3,     4,     0,     5,    -1,    11
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     4,     8,     9,     3,     6,     9,    10,    11,     0,
-       8,     5,    10
+       0,     4,     8,     9,    10,     3,     4,     5,     6,     9,
+      11,    12,     0,     8,     8,     5,    11
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,     7,     8,     8,     9,    10,    10,    11,    11,    11
+       0,     7,     8,     8,     8,     8,     9,    10,    11,    11,
+      11,    12,    12
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     1,     2,     3,     1,     2,     1,     1,     1
+       0,     2,     1,     1,     2,     2,     3,     2,     1,     2,
+       1,     1,     1
 };
 
 
@@ -1211,36 +1221,70 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-        case 3:
-#line 28 "xml.y" /* yacc.c:1646  */
+        case 5:
+#line 34 "xml.y" /* yacc.c:1646  */
     { std::cout << "concatenating tag" << std::endl;}
-#line 1218 "xml.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 4:
-#line 30 "xml.y" /* yacc.c:1646  */
-    { 
-        if ((yyvsp[-2].name) == (yyvsp[0].name))
-           {std::cout << "bison matched tag: " << (yyvsp[-2].name) <<"\n";}
-	else {std::cout<< "bison could not find matched tag: "<< (yyvsp[-2].name) <<"\n"; exit(1);}
-          }
 #line 1228 "xml.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
 #line 36 "xml.y" /* yacc.c:1646  */
+    { 
+      int size1 = sizeof((yyvsp[-2].name));
+      int size3 = sizeof((yyvsp[0].name));
+      char temp1[size1];
+      char temp3[size3];
+      strcpy(temp1, (yyvsp[-2].name));
+      strcpy(temp3,(yyvsp[0].name));
+      
+      for(int i = 0; i < size1; i++){
+        temp1[i] = tolower(temp1[i]);}
+      for(int i = 0; i < size3; i++){
+        temp3[i] = tolower(temp3[i]);}
+
+        if (strcmp(temp1, temp3)==0)
+           {std::cout << "bison matched tag: " << (yyvsp[-2].name) <<"\n";}
+	else {std::cout<< "bison could not find matched tag: "<< (yyvsp[-2].name) << "  " << (yyvsp[0].name) << "\n"; exit(1);}
+          }
+#line 1250 "xml.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 7:
+#line 54 "xml.y" /* yacc.c:1646  */
+    { 
+      int size1 = sizeof((yyvsp[-1].name));
+      int size2 = sizeof((yyvsp[0].name));
+      char temp1[size1];
+      char temp2[size2];
+      strcpy(temp1, (yyvsp[-1].name));
+      strcpy(temp2,(yyvsp[0].name));
+      
+      for(int i = 0; i < size1; i++){
+        temp1[i] = tolower(temp1[i]);}
+      for(int i = 0; i < size2; i++){
+        temp2[i] = tolower(temp2[i]);}
+
+        if (strcmp(temp1, temp2)==0)
+           {std::cout << "bison matched tag: " << (yyvsp[-1].name) <<"\n";}
+  else {std::cout<< "bison could not find matched tag: "<< (yyvsp[-1].name) << "  " << (yyvsp[0].name) << "\n"; exit(1);}
+          }
+#line 1272 "xml.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 10:
+#line 72 "xml.y" /* yacc.c:1646  */
     {std::cout << "made COMPLETEBODIES" <<std::endl;}
-#line 1234 "xml.tab.c" /* yacc.c:1646  */
+#line 1278 "xml.tab.c" /* yacc.c:1646  */
     break;
 
-  case 9:
-#line 38 "xml.y" /* yacc.c:1646  */
+  case 12:
+#line 74 "xml.y" /* yacc.c:1646  */
     {std::cout << "made COMPLETEBODY" << std::endl;}
-#line 1240 "xml.tab.c" /* yacc.c:1646  */
+#line 1284 "xml.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1244 "xml.tab.c" /* yacc.c:1646  */
+#line 1288 "xml.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1468,7 +1512,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 41 "xml.y" /* yacc.c:1906  */
+#line 77 "xml.y" /* yacc.c:1906  */
 
 
 int main()

@@ -56,7 +56,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 13 "xml.y" /* yacc.c:1909  */
+#line 19 "xml.y" /* yacc.c:1909  */
 
     char name[MAX_LEN];;
     /* You may include additional fields as you want. */
