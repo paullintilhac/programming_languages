@@ -756,17 +756,17 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 YY_RULE_SETUP
 #line 17 "xml.l"
-{std::string string1 = string(yytext); std::string tempString = string1.substr(1, std::min(string1.find(">"),string1.find(" "))-1);printf("flex opentag token:  *%s*\n", tempString.c_str()); strcpy(yylval.name,tempString.c_str()); return OPENTAG;}
+{std::string string1 = string(yytext); std::string tempString = string1.substr(1, std::min(string1.find(">"),string1.find(" "))-1); strcpy(yylval.name,tempString.c_str()); return OPENTAG;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
 #line 19 "xml.l"
-{ std::string string1 = string(yytext); std::string tempString = string1.substr(2, std::min(string1.find(">"),string1.find(" "))-2);printf("flex closetag token: = *%s*\n", tempString.c_str()); strcpy(yylval.name,tempString.c_str()); return CLOSETAG;}
+{ std::string string1 = string(yytext); std::string tempString = string1.substr(2, std::min(string1.find(">"),string1.find(" "))-2); strcpy(yylval.name,tempString.c_str()); return CLOSETAG;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
 #line 21 "xml.l"
-{printf("flex body token: %s\n", string(yytext));return TEXT;}
+{return TEXT;}
 	YY_BREAK
 case 4:
 /* rule 4 can match eol */
@@ -777,7 +777,7 @@ YY_RULE_SETUP
 case 5:
 YY_RULE_SETUP
 #line 26 "xml.l"
-{printf("Invalid token\n"); exit(1);  }
+{printf("Invalid\n"); exit(1);  }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
